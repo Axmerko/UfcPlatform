@@ -1,5 +1,5 @@
-import {server} from "./api/server";
-import mongo from "./database/mongo";
+import {server} from "./api/server.js";
+import mongo from "./database/mongo.js";
 
 const port = process.env.PORT || 3000;
 

@@ -1,7 +1,7 @@
 export const Config = {
-    port: process.env.PORT || 3000,
+    get port() { return process.env.PORT || 3000 },
     mongo: {
-        url: process.env.MONGO_URL,
-        dbName: process.env.MONGO_DB_NAME,
+        get url() { return process.env.MONGO_URL },
+        get dbName() { return process.env.MONGO_DB_NAME },
     },
 };

@@ -1,4 +1,4 @@
-import {Config} from "../../config";
+import {Config} from "../../config.js";
 import * as mongodb from "mongodb";
 
 const mongo = {
@@ -33,6 +33,6 @@ const mongo = {
     },
 };
 
-mongo.init();
+
 
 export default mongo;

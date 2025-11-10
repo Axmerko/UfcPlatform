@@ -1,10 +1,15 @@
-import Fighter from "../database/models/fighter.model";
-import mongo from "../database/mongo";
+import Fighter from "../database/models/fighter.model.js";
+import mongo from "../database/mongo.js";
 import {ObjectId} from "mongodb";
-import {FighterDto} from "../types/dto/fighter.dto";
+import {FighterDto} from "../types/dto/fighter.dto.js";
 
 const fighterService = {
-    fighter_collection: mongo.db.collection("fighters"),
+    get fighter_collection() {
+        if (!mongo.db) {
+            throw new Error("Databáze není inicializována! Zavolejte mongo.connect().");
+        }
+        return mongo.db.collection("fighters");
+    },
 
     async create(fighterDto: FighterDto) {
         const fighter = new Fighter(

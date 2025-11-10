@@ -1,9 +1,9 @@
-import statusController from "./controllers/status.controller";
-import fighterController from "./controllers/fighter.controller";
+import statusController from "./controllers/status.controller.js";
+import fighterController from "./controllers/fighter.controller.js";
+import express from "express";
 
-const express = require("express");
 import swaggerUi from "swagger-ui-express";
-import { swaggerSpec } from "../utils/swagger";
+import { swaggerSpec } from "../utils/swagger.js";
 
 export const server = express();
 

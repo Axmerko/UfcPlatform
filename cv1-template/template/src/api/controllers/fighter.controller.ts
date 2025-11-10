@@ -1,106 +1,108 @@
 /**
  * @openapi
  * /fighters:
- *   post:
- *     summary: Create a new fighter
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *     responses:
- *       201:
- *         description: Fighter created
- *       400:
- *         description: Invalid input
- *   get:
- *     summary: Get all fighters
- *     responses:
- *       200:
- *         description: A list of fighters
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   name:
- *                     type: string
- *                   id:
- *                     type: string
+ * post:
+ * summary: Create a new fighter
+ * requestBody:
+ * required: true
+ * content:
+ * application/json:
+ * schema:
+ * type: object
+ * properties:
+ * name:
+ * type: string
+ * responses:
+ * 201:
+ * description: Fighter created
+ * 400:
+ * description: Invalid input
+ * get:
+ * summary: Get all fighters
+ * responses:
+ * 200:
+ * description: A list of fighters
+ * content:
+ * application/json:
+ * schema:
+ * type: array
+ * items:
+ * type: object
+ * properties:
+ * name:
+ * type: string
+ * id:
+ * type: string
  * /fighters/{id}:
- *   get:
- *     summary: Get a fighter by ID
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: A single fighter
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 name:
- *                   type: string
- *                 id:
- *                   type: string
- *       404:
- *         description: Fighter not found
- *       400:
- *         description: Invalid ID
- *   put:
- *     summary: Update a fighter by ID
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *     responses:
- *       200:
- *         description: Fighter updated
- *       404:
- *         description: Fighter not found
- *       400:
- *         description: Invalid input
- *   delete:
- *     summary: Delete a fighter by ID
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *     responses:
- *       204:
- *         description: Fighter deleted
- *       404:
- *         description: Fighter not found
- *       400:
- *         description: Invalid ID
+ * get:
+ * summary: Get a fighter by ID
+ * parameters:
+ * - in: path
+ * name: id
+ * required: true
+ * schema:
+ * type: string
+ * responses:
+ * 200:
+ * description: A single fighter
+ * content:
+ * application/json:
+ * schema:
+ * type: object
+ * properties:
+ * name:
+ * type: string
+ * id:
+ * type: string
+ * 404:
+ * description: Fighter not found
+ * 400:
+ * description: Invalid ID
+ * put:
+ * summary: Update a fighter by ID
+ * parameters:
+ * - in: path
+ * name: id
+ * required: true
+ * schema:
+ * type: string
+ * requestBody:
+ * required: true
+ * content:
+ * application/json:
+ * schema:
+ * type: object
+ * properties:
+ * name:
+ * type: string
+ * responses:
+ * 200:
+ * description: Fighter updated
+ * 404:
+ * description: Fighter not found
+ * 400:
+ * description: Invalid input
+ * delete:
+ * summary: Delete a fighter by ID
+ * parameters:
+ * - in: path
+ * name: id
+ * required: true
+ * schema:
+ * type: string
+ * responses:
+ * 204:
+ * description: Fighter deleted
+ * 404:
+ * description: Fighter not found
+ * 400:
+ * description: Invalid ID
  */
 import * as express from "express";
-import fighterService from "../../services/fighter.service";
-import {FighterDto} from "../../types/dto/fighter.dto";
+// OPRAVA: Přidána přípona .js pro ESM modul
+import fighterService from "../../services/fighter.service.js";
+// OPRAVA: Přidána přípona .js pro ESM modul
+import {FighterDto} from "../../types/dto/fighter.dto.js";
 import {validate} from "class-validator";
 
 //! Make sure you are using correct response codes and messages
@@ -127,7 +129,12 @@ const fighterController = {
             res.status(201).json(newFighter);
 
         } catch (error) {
-            res.status(500).json({message: "Error creating Fighter", error: error.message });
+            // OPRAVA: Bezpečná kontrola typu 'error'
+            let errorMessage = "An unknown error occurred";
+            if (error instanceof Error) {
+                errorMessage = error.message;
+            }
+            res.status(500).json({message: "Error creating Fighter", error: errorMessage });
         }
     },
 
@@ -137,7 +144,12 @@ const fighterController = {
             // Posíláme zpět rovnou pole
             res.status(200).json(allFighters);
         } catch (error) {
-            res.status(500).json({ message: "Chyba při vrácení všech fighterů", error: error.message });
+            // OPRAVA: Bezpečná kontrola typu 'error'
+            let errorMessage = "An unknown error occurred";
+            if (error instanceof Error) {
+                errorMessage = error.message;
+            }
+            res.status(500).json({ message: "Chyba při vrácení všech fighterů", error: errorMessage });
         }
     },
 
@@ -155,7 +167,12 @@ const fighterController = {
             }
 
         }catch (error) {
-            res.status(500).json({message: "Error finding fighter", error: error.message});
+            // OPRAVA: Bezpečná kontrola typu 'error'
+            let errorMessage = "An unknown error occurred";
+            if (error instanceof Error) {
+                errorMessage = error.message;
+            }
+            res.status(500).json({message: "Error finding fighter", error: errorMessage});
         }
     },
 
@@ -189,7 +206,12 @@ const fighterController = {
             }
 
         }catch(error){
-            res.status(500).json({message: "Error updating fighter", error: error.message});
+            // OPRAVA: Bezpečná kontrola typu 'error'
+            let errorMessage = "An unknown error occurred";
+            if (error instanceof Error) {
+                errorMessage = error.message;
+            }
+            res.status(500).json({message: "Error updating fighter", error: errorMessage});
         }
     },
 
@@ -203,7 +225,12 @@ const fighterController = {
             res.sendStatus(204);
 
         }catch(error){
-            res.status(500).json({message: "Error deleting fighter", error: error.message});
+            // OPRAVA: Bezpečná kontrola typu 'error'
+            let errorMessage = "An unknown error occurred";
+            if (error instanceof Error) {
+                errorMessage = error.message;
+            }
+            res.status(500).json({message: "Error deleting fighter", error: errorMessage});
         }
     },
 };

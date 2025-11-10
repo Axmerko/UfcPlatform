@@ -3,21 +3,21 @@ import {IsNotEmpty, IsObject, IsOptional, IsString} from "class-validator";
 export class FighterDto {
     @IsNotEmpty()
     @IsString()
-    name: string;
+    name!: string;
 
     @IsOptional()
     @IsString()
-    nickname: string;
+    nickname!: string;
 
     @IsNotEmpty()
     @IsString()
-    weight_class: string;
+    weight_class!: string;
 
     @IsNotEmpty()
     @IsObject()
-    record: Object;
+    record!: Object;
 
     @IsNotEmpty()
     @IsObject()
-    stats: Object;
+    stats!: Object;
 }
