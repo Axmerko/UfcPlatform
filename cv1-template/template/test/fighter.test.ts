@@ -2,10 +2,10 @@ import {describe, it} from "vitest";
 import request from "./request";
 
 describe('status', () => {
-    it('returns 201 on /cats', async () => {
+    it('returns 201 on /fighters', async () => {
         const payload = {"name": "Bert"}
         await request
-            .post('/cats')
+            .post('/fighters')
             .send(payload)
             .expect(201)
     })

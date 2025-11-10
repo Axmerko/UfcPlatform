@@ -1,5 +1,5 @@
 import statusController from "./controllers/status.controller";
-import catController from "./controllers/cat.controller";
+import fighterController from "./controllers/fighter.controller";
 
 const express = require("express");
 import swaggerUi from "swagger-ui-express";
@@ -13,8 +13,8 @@ server.use(express.urlencoded({ extended: true }));
 server.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 server.get("/status", statusController.getStatus);
-server.post("/cats", catController.create);
-server.get("/cats", catController.findAll);
-server.get("/cats/:id", catController.findById);
-server.put("/cats/:id", catController.update);
-server.delete("/cats/:id", catController.delete);
+server.post("/fighters", fighterController.create);
+server.get("/fighters", fighterController.findAll);
+server.get("/fighters/:id", fighterController.findById);
+server.put("/fighters/:id", fighterController.update);
+server.delete("/fighters/:id", fighterController.delete);
