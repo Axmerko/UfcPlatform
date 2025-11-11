@@ -34,23 +34,21 @@ const fighterService = {
     },
 
     async update(id: string, fighterDto: FighterDto) {
-        return await this.fighter_collection.findOneAndUpdate(
+
+        const result = await this.fighter_collection.findOneAndUpdate(
             {_id: new ObjectId(id)},
-            {$set: {
-                name: fighterDto.name,
-                    nickname: fighterDto.nickname,
-                    weight_class: fighterDto.weight_class,
-                    record: fighterDto.record,
-                    stats: fighterDto.stats,
-            }},
+            {$set: fighterDto},
             {returnDocument: "after"}
         );
+        return result;
     },
 
     async delete(id: string) {
-        await this.fighter_collection.findOneAndDelete({
+
+        const result = await this.fighter_collection.findOneAndDelete({
             _id: new ObjectId(id),
         });
+        return result;
     },
 };
 

@@ -20,7 +20,7 @@ const mongo = {
             this.init();
         }
 
-        // The assertion !this.client is for type safety after init()
+
         await this.client!.connect();
 
         console.log("Connected to Mongo.");
